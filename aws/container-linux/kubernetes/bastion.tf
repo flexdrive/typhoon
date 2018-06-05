@@ -56,13 +56,13 @@ resource "aws_instance" "bastion" {
     Name = "${var.cluster_name}-bastion"
   }
 
-  instance_type = "${var.instance_type}"
+  instance_type = "${var.bastion_type}"
 
   ami       = "${local.ami_id}"
   user_data = "${data.ct_config.bastion_ign.rendered}"
 
   # network
-  subnet_id = "${var.subnet_id}"
+  subnet_id = "${element(aws_subnet.private.*.id, 0)}"
 
   vpc_security_group_ids = [
     "${aws_security_group.bastion_external.id}",

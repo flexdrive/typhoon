@@ -29,11 +29,6 @@ output "kubeconfig" {
   value = "${module.bootkube.kubeconfig}"
 }
 
-output "bastion_dns_name" {
-  value       = "${aws_lb.bastion.dns_name}"
-  description = "DNS name of the network load balancer for distributing traffic to bastion hosts"
-}
-
 output "apiserver_dns_name" {
   value       = "${aws_route53_record.apiserver.fqdn}"
   description = "DNS name of the Route53 record used to access the Kubernetes apiserver"
