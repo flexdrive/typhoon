@@ -65,6 +65,12 @@ variable "worker_price" {
   description = "Spot price in USD for autoscaling group spot instances. Leave as default empty string for autoscaling group to use on-demand instances. Note, switching in-place from spot to on-demand is not possible: https://github.com/terraform-providers/terraform-provider-aws/issues/4320"
 }
 
+variable "bastion_clc_snippets" {
+  type        = "list"
+  description = "Bastion Container Linux Config snippets"
+  default     = []
+}
+
 variable "controller_clc_snippets" {
   type        = "list"
   description = "Controller Container Linux Config snippets"
@@ -78,11 +84,6 @@ variable "worker_clc_snippets" {
 }
 
 # configuration
-
-variable "ssh_authorized_key" {
-  type        = "string"
-  description = "SSH public key for user 'core'"
-}
 
 variable "asset_dir" {
   description = "Path to a directory where generated assets should be placed (contains secrets)"
@@ -127,4 +128,39 @@ variable "cluster_domain_suffix" {
   description = "Queries for domains with the suffix will be answered by kube-dns. Default is cluster.local (e.g. foo.default.svc.cluster.local) "
   type        = "string"
   default     = "cluster.local"
+}
+
+variable "apiserver_aliases" {
+  type        = "list"
+  description = "List of alternate DNS names that can be used to address the Kubernetes API"
+  default     = []
+}
+
+variable "apiserver_arguments" {
+  type        = "list"
+  default     = []
+  description = "Custom arguments to pass to the kube-apiserver"
+}
+
+variable "bastion_type" {
+  type        = "string"
+  default     = "t2.micro"
+  description = "Bastion EC2 instance type"
+}
+
+variable "bastion_count" {
+  type        = "string"
+  default     = "1"
+  description = "Number of bastion hosts to run"
+}
+
+variable "worker_role" {
+  type        = "string"
+  description = "IAM role to assign to worker nodes (defaults to none)"
+  default     = ""
+}
+
+variable "ssh_user" {
+  type        = "string"
+  description = "Username for provisioning via SSH"
 }

@@ -33,9 +33,15 @@ resource "aws_instance" "controllers" {
   }
 
   # network
-  associate_public_ip_address = true
-  subnet_id                   = "${element(aws_subnet.public.*.id, count.index)}"
-  vpc_security_group_ids      = ["${aws_security_group.controller.id}"]
+  subnet_id = "${element(aws_subnet.private.*.id, count.index)}"
+
+  vpc_security_group_ids = [
+    "${aws_security_group.controller.id}",
+  ]
+
+  depends_on = [
+    "aws_instance.bastion",
+  ]
 
   lifecycle {
     ignore_changes = ["ami"]
@@ -57,7 +63,6 @@ data "template_file" "controller_config" {
     etcd_initial_cluster = "${join(",", data.template_file.etcds.*.rendered)}"
 
     kubeconfig            = "${indent(10, module.bootkube.kubeconfig)}"
-    ssh_authorized_key    = "${var.ssh_authorized_key}"
     k8s_dns_service_ip    = "${cidrhost(var.service_cidr, 10)}"
     cluster_domain_suffix = "${var.cluster_domain_suffix}"
   }
@@ -68,9 +73,9 @@ data "template_file" "etcds" {
   template = "etcd$${index}=https://$${cluster_name}-etcd$${index}.$${dns_zone}:2380"
 
   vars {
-    index = "${count.index}"
+    index        = "${count.index}"
     cluster_name = "${var.cluster_name}"
-    dns_zone = "${var.dns_zone}"
+    dns_zone     = "${var.dns_zone}"
   }
 }
 
