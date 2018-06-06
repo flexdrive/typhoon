@@ -7,7 +7,7 @@ resource "null_resource" "copy-controller-secrets" {
     host = "${element(aws_instance.controllers.*.private_ip, count.index)}"
     user = "${var.ssh_user}"
 
-    bastion_host = "${aws_route53_record.bastion.fqdn}"
+    bastion_host = "${aws_eip.bastion.public_ip}"
     bastion_user = "${var.ssh_user}"
 
     timeout = "15m"
@@ -80,7 +80,7 @@ resource "null_resource" "bootkube-start" {
     host = "${aws_instance.controllers.0.private_ip}"
     user = "${var.ssh_user}"
 
-    bastion_host = "${aws_route53_record.bastion.fqdn}"
+    bastion_host = "${aws_eip.bastion.public_ip}"
     bastion_user = "${var.ssh_user}"
 
     timeout = "15m"

@@ -84,13 +84,9 @@ data "ct_config" "bastion_ign" {
   snippets     = ["${var.bastion_clc_snippets}"]
 }
 
-resource "aws_eip_association" "bastion" {
-  instance_id   = "${aws_instance.bastion.id}"
-  allocation_id = "${aws_eip.bastion.id}"
-}
-
 resource "aws_eip" "bastion" {
-  vpc = true
+  instance = "${aws_instance.bastion.id}"
+  vpc      = true
 }
 
 resource "aws_route53_record" "bastion" {
