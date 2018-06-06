@@ -17,9 +17,9 @@ resource "aws_route53_record" "apiserver" {
 resource "aws_lb" "nlb" {
   name               = "${var.cluster_name}-nlb"
   load_balancer_type = "network"
-  internal           = false
+  internal           = true
 
-  subnets = ["${aws_subnet.public.*.id}"]
+  subnets = ["${aws_subnet.private.*.id}"]
 
   enable_cross_zone_load_balancing = true
 }
@@ -64,7 +64,7 @@ resource "aws_lb_listener" "ingress-https" {
 resource "aws_lb_target_group" "controllers" {
   name        = "${var.cluster_name}-controllers"
   vpc_id      = "${aws_vpc.network.id}"
-  target_type = "instance"
+  target_type = "ip"
 
   protocol = "TCP"
   port     = 6443

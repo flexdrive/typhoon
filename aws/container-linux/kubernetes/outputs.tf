@@ -12,8 +12,13 @@ output "vpc_id" {
   description = "ID of the VPC for creating worker instances"
 }
 
-output "subnet_ids" {
+output "external_subnet_ids" {
   value       = ["${aws_subnet.public.*.id}"]
+  description = "List of subnet IDs for creating worker instances"
+}
+
+output "internal_subnet_ids" {
+  value       = ["${aws_subnet.private.*.id}"]
   description = "List of subnet IDs for creating worker instances"
 }
 

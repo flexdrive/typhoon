@@ -4,7 +4,7 @@ module "workers" {
 
   # AWS
   vpc_id          = "${aws_vpc.network.id}"
-  subnet_ids      = ["${aws_subnet.public.*.id}"]
+  subnet_ids      = ["${aws_subnet.private.*.id}"]
   security_groups = ["${aws_security_group.worker.id}"]
   count           = "${var.worker_count}"
   instance_type   = "${var.worker_type}"
@@ -14,7 +14,6 @@ module "workers" {
 
   # configuration
   kubeconfig            = "${module.bootkube.kubeconfig}"
-  ssh_authorized_key    = "${var.ssh_authorized_key}"
   service_cidr          = "${var.service_cidr}"
   cluster_domain_suffix = "${var.cluster_domain_suffix}"
   clc_snippets          = "${var.worker_clc_snippets}"
