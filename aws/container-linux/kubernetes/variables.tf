@@ -154,12 +154,6 @@ variable "bastion_count" {
   description = "Number of bastion hosts to run"
 }
 
-variable "worker_role" {
-  type        = "string"
-  description = "IAM role to assign to worker nodes (defaults to none)"
-  default     = ""
-}
-
 variable "ssh_user" {
   type        = "string"
   description = "Username for provisioning via SSH"
