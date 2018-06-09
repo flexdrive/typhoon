@@ -10,7 +10,7 @@ resource "aws_autoscaling_group" "workers" {
   health_check_grace_period = 30
 
   # network
-  vpc_zone_identifier = ["${var.subnet_ids}"]
+  vpc_zone_identifier = ["${var.internal_subnet_ids}"]
 
   # template
   launch_configuration = "${aws_launch_configuration.worker.name}"
