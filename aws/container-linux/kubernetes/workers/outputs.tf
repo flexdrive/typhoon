@@ -9,6 +9,6 @@ output "target_group_https" {
 }
 
 output "ingress_zone_id" {
-  value       = "${aws_lb.ingress.dns_name}"
+  value       = "${aws_lb.ingress.zone_id}"
   description = "Zone ID of the network load balaner for distributing traffic to the worker ingress controllers"
 }
