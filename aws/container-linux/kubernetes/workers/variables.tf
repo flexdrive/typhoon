@@ -10,12 +10,7 @@ variable "vpc_id" {
   description = "Must be set to `vpc_id` output by cluster"
 }
 
-variable "external_subnet_ids" {
-  type        = "list"
-  description = "Must be set to `subnet_ids` output by cluster"
-}
-
-variable "internal_subnet_ids" {
+variable "subnet_ids" {
   type        = "list"
   description = "Must be set to `subnet_ids` output by cluster"
 }
