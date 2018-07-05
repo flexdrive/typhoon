@@ -60,6 +60,8 @@ systemd:
           --network-plugin=cni \
           --node-labels=node-role.kubernetes.io/node \
           --pod-manifest-path=/etc/kubernetes/manifests \
+          --node-labels=${worker_taint_label} \
+          --register-with-taints=${worker_taint} \
           --volume-plugin-dir=/var/lib/kubelet/volumeplugins
         ExecStop=-/usr/bin/rkt stop --uuid-file=/var/cache/kubelet-pod.uuid
         Restart=always

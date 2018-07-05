@@ -86,3 +86,16 @@ variable "cluster_domain_suffix" {
   type        = "string"
   default     = "cluster.local"
 }
+
+# TODO: Redo these so that you can provide a list; need to determine to how to render empty lines in template_file when empty
+variable "worker_taint" {
+  description = "Taint to add to worker pool if desired"
+  type        = "string"
+  default     = ""
+}
+
+variable "worker_taint_label" {
+  description = "Label for taint to allow node selector for pods"
+  type        = "string"
+  default     = ""
+}
