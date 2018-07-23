@@ -72,6 +72,8 @@ data "template_file" "worker_config" {
     kubeconfig            = "${indent(10, var.kubeconfig)}"
     k8s_dns_service_ip    = "${cidrhost(var.service_cidr, 10)}"
     cluster_domain_suffix = "${var.cluster_domain_suffix}"
+    worker_taint          = "${var.worker_taint}"
+    worker_taint_label    = "${var.worker_taint_label}"
   }
 }
 
