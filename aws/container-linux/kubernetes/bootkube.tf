@@ -12,5 +12,4 @@ module "bootkube" {
   service_cidr          = "${var.service_cidr}"
   cluster_domain_suffix = "${var.cluster_domain_suffix}"
   apiserver_arguments   = "${var.apiserver_arguments}"
-  apiserver_aliases     = "${var.apiserver_aliases}"
 }

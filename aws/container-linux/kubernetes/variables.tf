@@ -130,12 +130,6 @@ variable "cluster_domain_suffix" {
   default     = "cluster.local"
 }
 
-variable "apiserver_aliases" {
-  type        = "list"
-  description = "List of alternate DNS names that can be used to address the Kubernetes API"
-  default     = []
-}
-
 variable "apiserver_arguments" {
   type        = "list"
   default     = []
