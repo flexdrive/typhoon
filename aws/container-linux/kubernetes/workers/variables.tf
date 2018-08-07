@@ -99,3 +99,9 @@ variable "worker_taint_label" {
   type        = "string"
   default     = ""
 }
+
+variable "addl_target_group_arns" {
+  description = "Additional target groups to attach instances to"
+  type        = "list"
+  default     = []
+}
